@@ -33,9 +33,41 @@ void insert (Trie* root,char* kata, char* deskripsi){
     strcpy (temp -> deskripsi , deskripsi) ;
 }
 
-void search (Trie* root, Trie* kata){
+void search (Trie* root, char* kata){
+    Trie* current = root ;
     
+    for (int i = 0 ; i < strlen(kata) ;i++){
+        int index = kata[i] - 'a' ;
+        
+        if (current -> abjad[index] == NULL){
+            return NULL ;
+        }
+        
+        current = current -> abjad[index] ;
+    }
+
+    if (current -> akhirKata == 1){
+        return current -> deskripsi ;
+    }
+    else return NULL ; 
 }
+
+Trie* searchPref(Trie* root, char* prefix) {
+    Trie* current = root;
+    
+    for (int i = 0; i < strlen(prefix); i++) {
+        int index = prefix[i] - 'a';
+        
+        if (current->abjad[index] == NULL) {
+            return NULL;
+        }
+        
+        current = current->abjad[index];
+    }
+    
+    return current;
+}
+
 
 int main (){
    
