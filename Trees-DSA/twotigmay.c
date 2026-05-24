@@ -62,15 +62,47 @@ void postorder
 }
 
 /* --- Mid Code --- */
+
+/* --- hitung ada berapa jumlah node dalam sebuah tree*/
 int countJumlah (Node* root){
     if (root == NULL){
         return 0 ;
     }
-    
     return 1 + countJumlah (root -> left) + countJumlah (root ->  right) ;
 }
 
+/* menghitung kedalaman sebuah tree, (ada di level berapa trees tersebut)*/
 
+int max (int a , int b){
+    if (a > b) return a ;
+    else return b ;
+}
+
+int height (Node* root){
+    if (root == NULL)return 0 ;
+    /*kenapa 0, karea root tidak memiliki value*/
+    
+    int leftHeight = height (root -> left) ;
+    int rightHeight = height (root -> right) ;
+
+    return 1 + max (leftHeight,rightHeight) ;
+}
+
+/* Penjelasan untuk Code mencari kedalaman levelya
+1. pada step awal kita harus cek, apakah root ada atau tidak. jika roo t tidak ada maka kita akan me return  nilainya menjadi ZERO/0
+2. setelah itu kita mengecek bagian kiri dari root awal. setelah masuk kedalam value yang ada di kiri, kita harus cek lagi, apakah nilai kiri it null atau tidak, jika tidak null maka kita mengecek cabang cabang nya ,mulai dari kiri lalu nanti ke kanan
+3. setelah bagian kiri selesai, lalu kita cek bagian kanannya bagaimana, cara dan prosesnya sama dengan bagian yang kiri*/
+
+
+// --- Find Minimum ---
+
+struct Node* findMin (Node* root){
+    if (root == NULL) return NULL ;
+    
+    while (root -> left != NULL) root = root -> left ;
+    
+    return root ;
+}
 
 
 int main (){
