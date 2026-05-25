@@ -33,7 +33,7 @@ void insert (Trie* root,char* kata, char* deskripsi){
     strcpy (temp -> deskripsi , deskripsi) ;
 }
 
-void search (Trie* root, char* kata){
+char* search (Trie* root, char* kata){
     Trie* current = root ;
     
     for (int i = 0 ; i < strlen(kata) ;i++){
@@ -56,7 +56,7 @@ Trie* searchPref(Trie* root, char* prefix) {
     Trie* current = root;
     
     for (int i = 0; i < strlen(prefix); i++) {
-        int index = prefix[i] - 'a';
+        int index = prefix[i] - 'a'; // sebuah array tidak bisa di akses oleh sebuah huruf, melainkan hanya bisa diakses oleh sebuah angka
         
         if (current->abjad[index] == NULL) {
             return NULL;
@@ -67,11 +67,52 @@ Trie* searchPref(Trie* root, char* prefix) {
     
     return current;
 }
+void cekKata (Trie* node,char* kataCari, int level){
+    if (node -> akhirKata == 1) {
+        printf ("%s", kataCari) ;
+    }
+
+    for (int i = 0 ; i < 26 ; i++){
+        if (node -> abjad[i] != NULL){
+            
+            kataCari [level] = i + 'a' ;
+            kataCari  [level + 1] = '\0' ;
+
+            cekKata (node -> abjad [i],kataCari,level+1) ;
+        }
+    }
+}
+
+int cekKosong (Trie* node){
+    for (int i = 0 ; i<26 ;i++){
+        if (node -> abjad[i] != NULL){
+            return 0 ;
+        }
+    }
+    return 1 ;
+}
+
+void viewAll(Trie* root) {
+    if (root == NULL || cekKosong(root)) {
+        printf("There is no slang word yet in the dictionary.\n");
+    } else {
+        printf("List of all slang words in the dictionary:\n");
+        
+        char kataCari[1000];
+        kataCari[0] = '\0';
+        
+        cekKata(root, kataCari, 0);
+    }
+    
+    printf("Press enter to continue...");
+    getchar();
+    getchar();
+}
 
 
 int main (){
    
-    struct Trie mhs [1000] ;
+    Trie* root = buatNode () ;
 
     int menu ;
     printf ("----- MENU -----\n") ;
