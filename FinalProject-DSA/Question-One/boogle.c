@@ -12,7 +12,7 @@ struct Trie* buatNode(){
     Trie* nodeBaru = (Trie*)malloc(sizeof(Trie)) ;
     
     for (int i = 0 ; i < 26 ; i++){
-        nodeBaru -> abjad[i] = NULL ; // ngeset agar semua
+        nodeBaru -> abjad[i] = NULL ; 
     }
     nodeBaru -> akhirKata = 0;
     return nodeBaru ;
@@ -26,7 +26,7 @@ void insert (Trie* root,char* kata, char* deskripsi){
         if (temp -> abjad[index] == NULL){
             temp -> abjad[index] = buatNode();
         }
-        temp = temp -> abjad[index] ; // untuk pindah ke node berikutnya
+        temp = temp -> abjad[index] ; 
     }
 
     temp -> akhirKata = 1 ;
@@ -104,7 +104,7 @@ void viewAll(Trie* root) {
         cekKata(root, kataCari, 0);
     }
     
-    printf("Press enter to continue...");
+    printf("\nPress enter to continue...");
     getchar();
     getchar();
 }
